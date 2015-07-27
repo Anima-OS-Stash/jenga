@@ -4,6 +4,7 @@ build_desktop=0
 build_terminal=0
 build_filemanager=0
 build_texteditor=0
+build_imageviewer=0
 
 for x in $@; do
 	echo $x
@@ -11,6 +12,7 @@ for x in $@; do
 	if (test "$x" = "terminal"); then build_terminal=1; fi
 	if (test "$x" = "filemanager"); then build_filemanager=1; fi
 	if (test "$x" = "texteditor"); then build_texteditor=1; fi
+	if (test "$x" = "imageviewer"); then build_imageviewer=1; fi
 done
 
 if (test "$build_desktop" = "1"); then
@@ -28,4 +30,8 @@ fi
 if (test "$build_texteditor" = "1"); then
 	echo "[] Build: Text editor"
 	gcc -O3 -std=gnu99 $(pkg-config --cflags --libs gtkwidget2 libfile gtksourceview-2.0) my-text-editor.c -o /bin/my-text-editor
+fi
+if (test "$build_imageviewer" = "1"); then
+	echo "[] Build: Image viewer"
+	gcc -O3 -std=gnu99 $(pkg-config --cflags --libs gtkwidget2 libfile) my-image-viewer.c -o /bin/my-image-viewer
 fi
