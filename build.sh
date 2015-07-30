@@ -5,6 +5,7 @@ build_terminal=0
 build_filemanager=0
 build_texteditor=0
 build_imageviewer=0
+build_mediaplayer=0
 
 for x in $@; do
 	echo $x
@@ -13,6 +14,7 @@ for x in $@; do
 	if (test "$x" = "filemanager"); then build_filemanager=1; fi
 	if (test "$x" = "texteditor"); then build_texteditor=1; fi
 	if (test "$x" = "imageviewer"); then build_imageviewer=1; fi
+	if (test "$x" = "mediaplayer"); then build_mediaplayer=1; fi
 done
 
 if (test "$build_desktop" = "1"); then
@@ -34,4 +36,8 @@ fi
 if (test "$build_imageviewer" = "1"); then
 	echo "[] Build: Image viewer"
 	gcc -O3 -std=gnu99 $(pkg-config --cflags --libs gtkwidget2 libfile) my-image-viewer.c -o /bin/my-image-viewer
+fi
+if (test "$build_mediaplayer" = "1"); then
+	echo "[] Build: Media player"
+	gcc -O3 -std=gnu99 $(pkg-config --cflags --libs gtkwidget2 libfile gstreamer-1.0 gstreamer-video-1.0) my-media-player.c -o /bin/my-media-player
 fi
