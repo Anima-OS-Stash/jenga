@@ -7,6 +7,15 @@ build_texteditor=0
 build_imageviewer=0
 build_mediaplayer=0
 build_webbrowser=0
+if (test "$1" = "all"); then
+	build_desktop=1
+	build_terminal=1
+	build_filemanager=1
+	build_texteditor=1
+	build_imageviewer=1
+	build_mediaplayer=1
+	build_webbrowser=1
+fi
 
 for x in $@; do
 	echo $x
